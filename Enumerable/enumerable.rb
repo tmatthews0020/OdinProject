@@ -59,11 +59,11 @@ module Enumerable
     c
   end
 
-  def my_map(block)
+  def my_map(code_block)
     array = []
-    if block
+    if code_block
       my_each do |i|
-        new_array << block.call(i)
+        new_array << code_block.call(i)
       end
       return new_array
     else
