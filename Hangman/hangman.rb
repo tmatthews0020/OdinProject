@@ -25,7 +25,7 @@ class Dictionary
   end
 
   def word_length
-    @word_length = @word.length - 2
+    @word_length = @word.length - 2 #  - 2 is to compensate for /r & /n in string
   end
 
   def random_word
@@ -33,8 +33,8 @@ class Dictionary
     while(length < 5)
       random = rand(@dictionary.length)
       @word = @dictionary[random].downcase
-      word_length
-      length = @word_length - 2 #  - 2 is to compensate for /r & /n in string
+      length = word_length
+
     end
     @word
   end
@@ -55,11 +55,14 @@ attr_accessor :game, :guesses, :turns, :letters, :game_array
 
   def start_game
     word_output
-    while(@turns >= 0)
+    while(!full?)
       board
       puts "Please input a letter as a Guess!"
       input = get_input
-      wins?
+      if(wins?)
+        puts "You win!"
+      end
+
     end
 
   end
@@ -70,21 +73,51 @@ attr_accessor :game, :guesses, :turns, :letters, :game_array
   end
 
   def get_input
+    puts @letters
     x = gets.chomp.downcase
     regexp = /[a-z]/
-    while(!x.validate(regexp))
-      "Reenter a Letter a-z or A-Z"
-      x = gets.chomp.downcase
+      while(!x.validate(regexp))
+        puts "Reenter a Letter a-z or A-Z"
+        x = gets.chomp.downcase
+      end
+    if(x == 'guess')
+      if(guess?)
+        puts "that is correct!"
+        @turns = 0
+      else
+        puts "sorry that is not correct"
+      end
+    else
+      check_letters_array(x)
+      guesses
     end
-    check_letters_array(x)
-    guesses
+  end
+
+
+  def guess?
+    correct = true
+    puts "what is your guess?"
+    guess = gets.chomp
+    guess = guess.split("")
+
+    @letters.each_with_index do |char, index|
+      if(char != guess[index])
+        false
+      end
+    end
+    if(correct)
+      @letters.each_with_index do |char, index|
+        @game_array = char
+        end
+      end
+
   end
 
   def check_letters_array(letter)
 
     positions = Array.new
-    @letters.each_with_index do | value, index   |
-      puts "#{value} & #{index}"
+    @letters.each_with_index do | value, index |
+      # puts "#{value} & #{index}"
       if(value == letter)
         @game_array[index] = letter
       end
@@ -96,12 +129,24 @@ attr_accessor :game, :guesses, :turns, :letters, :game_array
     @game_array = []
     @letters = []
     (@game.word_length).times { @game_array << "_"}
-    @game.word.each_char { |x| @letters << x }
+    @letters = @game.word.tr("/\n\r/", "").split("")
+    # @game.word.each_char { |x| @letters << x }
+  end
+
+  def full?
+    if(@turns <= 0)
+       true
+     else
+       false
+    end
+
   end
 
   def wins?
     winner = true
     @letters.each_with_index do |value, index|
+      # puts "checking"
+      # puts "#{value} & #{@game_array[index]}"
       winner = false unless value == @game_array[index]
     end
     winner
