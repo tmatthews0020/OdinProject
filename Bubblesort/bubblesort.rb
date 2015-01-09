@@ -1,5 +1,7 @@
 def bubble_sort(array)
 
+
+
 sorted = false
 length = array.length
 
@@ -8,7 +10,7 @@ while(!sorted)
 	x = 0
 	while(x < length -1)
 
-	
+
 
 	if(array[x] > array[x+1])
 		temp = array[x]
@@ -22,6 +24,11 @@ x = 0
 end
 return array
 end
+a = []
+(0..100000).each {|x| a << rand(x) }
+
+t = Time.now
+puts bubble_sort(a)
 
 
-puts bubble_sort([1,5,7,3,23,6,4,7,54])
+puts "This sort took #{Time.now - t} seconds"
