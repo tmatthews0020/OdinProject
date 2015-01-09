@@ -1,0 +1,12 @@
+def reverse_append(ary, n)
+  ary.push(n)
+  if ary == 0
+    return ary
+  end
+  reverse_append(ary, n-1)
+ 
+end
+
+
+reverse_append([], 5)
+reverse_append([], 10)
