@@ -30,13 +30,11 @@ def caesar_cipher(string, num)
 
   end
 
-
+  array.map! {|x| x.chr unless x == nil }
+  array.join
 end
 
 
 
 ciphered = caesar_cipher("hello world", 5)
 ciphered.class
-ciphered.map! {|x| x.chr unless x == nil }
-puts ciphered.class
-puts ciphered.join

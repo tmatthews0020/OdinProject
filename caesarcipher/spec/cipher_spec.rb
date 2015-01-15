@@ -1,6 +1,9 @@
-require_relative '../caesarcipher'
+require_relative 'spec_helper'
 
-describe "returns a correct cipher based on key" do
-  p = caesar_cipher("abcdef", 1)
-  p.should eql "bcdefg"
+
+describe "#caesar_cipher" do
+  it "should cipher" do
+    p = caesar_cipher("abcdef", 1)
+    expect(p).to eql("bcdefg")
+  end
 end

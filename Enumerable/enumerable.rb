@@ -70,13 +70,13 @@ module Enumerable
       return self
     end
   end
+end
+  #
+    # puts [1,2,3].none? {|x| x > 0}
+    # puts [1,2,3].my_count(2)
+    # puts [1,2,3].count(2)
+    # puts [1,2,3].my_map {|x| x += 1}
+    # puts [1,2,3].map {|x| x += 1}
+    #
 
-
-    puts [1,2,3].my_none? {|x| x > 0}
-    puts [1,2,3].none? {|x| x > 0}
-    puts [1,2,3].my_count(2)
-    puts [1,2,3].count(2)
-    puts [1,2,3].my_map {|x| x += 1}
-    puts [1,2,3].map {|x| x += 1}
-
-  end
+  #   puts [1,2,3].my_none? {|x| x > 0}

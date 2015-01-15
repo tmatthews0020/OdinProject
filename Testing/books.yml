@@ -1,0 +1,5 @@
+---
+- !ruby/object:Book
+  title: book
+  author: author
+  category: :development
