@@ -25,7 +25,7 @@ module TicTacToe
       current = turn
       puts @turns
       puts " '#{current}' it's your turn. 1-9"
-      location = gets.chomp.to_i
+      location = STDIN.gets.chomp.to_i
 
       if(!@grid.already_taken?(location))
         @grid.update(location, current)
@@ -113,5 +113,5 @@ module TicTacToe
 
 end
 
-
-x = TicTacToe::Game.new()
+#
+# x = TicTacToe::Game.new()

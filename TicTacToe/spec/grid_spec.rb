@@ -1,18 +1,14 @@
-require_relative '../grid.rb'
+require 'spec_helper'
 
 
-describe Grid do
+describe TicTacToe::Grid do
 
-  it "is class Grid" do
-    @board = Grid.new(3,3)
-    expect(@board.class).to eq(Grid)
+  before :all do
+    @grid = TicTacToe::Grid.new
   end
 
-  it "initialize grid array 2d" do
-    @board = Grid.new(3,3)
-
-    @board.grid.each do |row|
-      expect(row.length).to eq(3);
-    end
+  it "initializes board" do
+    expect(@grid).to be_instance_of(TicTacToe::Grid)
   end
+
 end
