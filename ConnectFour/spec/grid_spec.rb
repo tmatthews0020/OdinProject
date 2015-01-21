@@ -18,4 +18,5 @@ describe Grid do
       expect(x.length).to eql(7)
     end
   end
+
 end
