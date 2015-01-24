@@ -35,28 +35,73 @@ attr_accessor :grid
     def input_into_board(player)
       puts "Where would you like to insert your next move?"
       input = STDIN.gets.chomp.to_i
-      index = check_row(input)
-      @grid[index][input] = player
+      index = check_spot(input)
+      if(@grid[index][input] == " ")
+        @grid[index][input] = player
+      else
+        puts "that spot is already taken"
+        input_into_board(player)
+      end
     end
 
-    private
-
-      def check_row(i)
-        pos = 0
-        @grid.each_with_index do |x , index|
-          puts "#{x[i] == " "}"
-          if x[i] == " "
-            pos = index
+    def check_row
+      @grid.each do |row|
+        row.each_cons(4) do |sub|
+          temp = sub.uniq
+          if(temp.length == 1 && temp[0] != " ")
+            puts "The winner is #{temp[0]}"
+            return true
           end
         end
-        pos
       end
+      false
+    end
+
+    def check_col
+      tem = @grid.transpose
+      tem.each do |row|
+        row.each_cons(4) do |sub|
+          temp = sub.uniq
+          if(temp.length == 1 && temp[0] != " ")
+            puts "The winner is #{temp[0]}"
+            return true
+          end
+        end
+      end
+      false
+    end
+
+    # def check_diag
+    #   from_left
+    #   from_right
+    # end
+    #
+    # def from_left
+    #   x , y = 0 , 0
+    #   winner
+    #   while(!winner)
+    #     temp << @grid[x][y]
+    #     x, y += 1
+    #     if(temp.uniq.length == 1)
+    #       winner = true
+    #     end
+    #
+    #   end
+    private
+
+    def check_spot(i)
+      pos = 0
+      @grid.each_with_index do |x , index|
+        if x[i] == " "
+          pos = index
+        end
+      end
+      pos
+    end
+
+  end
 
 
-
-
-
-end
 
 
 class Game
@@ -86,9 +131,25 @@ class Game
     player.player_message
     @board.print_board
     @board.input_into_board(player.game_piece)
-    @turn += 1
-    play
+    if(winner?)
+      @board.print_board
+      return
+    else
+      @turn += 1
+      play
+    end
+  end
 
+  def winner?
+    if(@board.check_row)
+      true
+     elsif(@board.check_col)
+       true
+    # elsif(@board.check_diag)
+    #   true
+    else
+      false
+    end
   end
 
 
