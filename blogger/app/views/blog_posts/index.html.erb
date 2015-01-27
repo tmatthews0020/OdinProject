@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+
+  <div class="blog">
+        <% @blog_posts.each do |blog_post| %>
+
+        <div class="blog-post-title">
+          <h1><%= blog_post.title %></h1>
+        </div>
+        <div class="blog-post-body">
+          <%= blog_post.body %>
+        </div>
+        <div class="blog-post-name">
+          <p><%= blog_post.user %></p>
+        </div>
+        <div class="blog-post-date">
+          <p><%= blog_post.created_at %></p>
+        </div>
+
+        <!-- <%= link_to 'Show', blog_post %></td>
+        <td><%= link_to 'Edit', edit_blog_post_path(blog_post) %></td>
+        <td><%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+
+
+
+    <% end %>
+  </div>
+
+<br>
+
+
+
+<%= link_to 'New Blog post', new_blog_post_path %>
